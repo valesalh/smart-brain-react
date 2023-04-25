@@ -8,76 +8,77 @@ import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 
 const particlesOptions = {
-  background: {
-    color: {
-        value: "#0d47a1",
+    background: {
+      color: {
+          value: "#0d47a1",
+      },
     },
-  },
-  fpsLimit: 60,
-  interactivity: {
-    events: {
-        onClick: {
-            enable: true,
-            mode: "push",
-        },
-        onHover: {
-            enable: true,
-            mode: "repulse",
-        },
-        resize: true,
+    fpsLimit: 60,
+    interactivity: {
+      events: {
+          onClick: {
+              enable: true,
+              mode: "push",
+          },
+          onHover: {
+              enable: true,
+              mode: "repulse",
+          },
+          resize: true,
+      },
+      modes: {
+          push: {
+              quantity: 4,
+          },
+          repulse: {
+              distance: 200,
+              duration: 0.4,
+          },
+      },
     },
-    modes: {
-        push: {
-            quantity: 4,
-        },
-        repulse: {
-            distance: 200,
-            duration: 0.4,
-        },
+    particles: {
+      color: {
+          value: "#ffffff",
+      },
+      links: {
+          color: "#ffffff",
+          distance: 150,
+          enable: true,
+          width: 1,
+      },
+      move: {
+          directions: "none",
+          enable: true,
+          outModes: {
+              default: "bounce",
+          },
+          random: false,
+          speed: 6,
+          straight: false,
+      },
+      collision: {
+          enable: false,
+      },
+      number: {
+          density: {
+              enable: true,
+              area: 800,
+          },
+          value: 50,
+      },
+      opacity: {
+          value: 0.5,
+      },
+      shape: {
+          type: "circle",
+      },
+      size: {
+          value: { min: 1, max: 5 },
+      },
     },
-  },
-  particles: {
-    color: {
-        value: "#ffffff",
-    },
-    links: {
-        color: "#ffffff",
-        distance: 150,
-        enable: true,
-        width: 1,
-    },
-    collisions: {
-        enable: true,
-    },
-    move: {
-        directions: "none",
-        enable: true,
-        outModes: {
-            default: "bounce",
-        },
-        random: false,
-        speed: 6,
-        straight: false,
-    },
-    number: {
-        density: {
-            enable: true,
-            area: 800,
-        },
-        value: 50,
-    },
-    opacity: {
-        value: 0.5,
-    },
-    shape: {
-        type: "circle",
-    },
-    size: {
-        value: { min: 1, max: 5 },
-    },
-  },
-  detectRetina: true,
+    detectRetina: true,
 }
+  
 
 
 function App() {
@@ -104,6 +105,7 @@ function App() {
       <Rank />
       <ImageLinkForm />
       {/* <FaceRecognition /> */}
+
     </div>
   );
 }
