@@ -6,6 +6,7 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import ParticlesComponent from './components/Particles/ParticlesComponent';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+import Signin from './components/Signin/Signin';
 
 const makeClarifaiRequest = (imageURL) => {
     // Your PAT (Personal Access Token) can be found in the portal under Authentification
@@ -55,6 +56,8 @@ class App extends Component {
             input: "",
             imageURL: "",
             box: {},
+            route: "signin",
+
         }
     }
 
@@ -90,21 +93,32 @@ class App extends Component {
         .catch(err => console.log(err));
     }
 
-  render() {
+    onRouteChange = (route) => {
+        this.setState({route});
+    }
+
+    render() {
         return (
             <div className="App">
                 <ParticlesComponent />
-                <Navigation />
-                <Logo />
-                <Rank />
-                <ImageLinkForm 
-                    onInputChange={this.onInputChange}
-                    onButtonSubmit={this.onSubmit}
-                />
-                <FaceRecognition 
-                    box = {this.state.box}
-                    imageURL={this.state.imageURL}
-                />
+                <Navigation onRouteChange={this.onRouteChange} />
+                {
+                    this.state.route === 'signin' 
+                    ? <Signin onRouteChange={this.onRouteChange} />
+                    : <div>
+                    <Logo />
+                    <Rank />
+                    <ImageLinkForm 
+                        onInputChange={this.onInputChange}
+                        onButtonSubmit={this.onSubmit}
+                    />
+                    <FaceRecognition 
+                        box = {this.state.box}
+                        imageURL={this.state.imageURL}
+                    />
+                </div>
+                }
+                
             </div>
         );
     }
