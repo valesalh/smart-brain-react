@@ -77,7 +77,6 @@ class App extends Component {
     displayFaceBox = (box) => {
         console.log("INSIDE DISPLAYFACEBOX", box);
         this.setState({box});
-        // can do this.setState({box: box})
     }
 
     onInputChange = (event) => {
