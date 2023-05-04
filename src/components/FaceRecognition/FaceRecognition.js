@@ -2,9 +2,6 @@ import './FaceRecognition.css';
 
 
 const FaceRecognition = ( {imageURL, box} ) => {
-
-    console.log("INSIDE FACERECOGNITION", box);
-
     return (
         <div className='center ma'>
             <div className="absolute mt2">

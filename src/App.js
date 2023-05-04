@@ -7,6 +7,7 @@ import Rank from './components/Rank/Rank';
 import ParticlesComponent from './components/Particles/ParticlesComponent';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Signin from './components/Signin/Signin';
+import Register from './components/Register/Register';
 
 const makeClarifaiRequest = (imageURL) => {
     // Your PAT (Personal Access Token) can be found in the portal under Authentification
@@ -57,6 +58,7 @@ class App extends Component {
             imageURL: "",
             box: {},
             route: "signin",
+            isSignedIn: false,
 
         }
     }
@@ -75,12 +77,10 @@ class App extends Component {
     }
 
     displayFaceBox = (box) => {
-        console.log("INSIDE DISPLAYFACEBOX", box);
         this.setState({box});
     }
 
     onInputChange = (event) => {
-        console.log(event.target.value);
         this.setState({input: event.target.value});
     }
 
@@ -93,31 +93,50 @@ class App extends Component {
     }
 
     onRouteChange = (route) => {
+        if(route === 'signin') {
+            this.setState({isSignedIn: false});
+        } else if(route === 'home') {
+            this.setState({isSignedIn: true});
+        }
         this.setState({route});
     }
 
+    determineView = () => {
+        const { imageURL, route, box } = this.state;
+        if(this.state.route === 'home') {
+            return (
+                <div>
+                <Logo />
+                <Rank />
+                <ImageLinkForm 
+                    onInputChange={this.onInputChange}
+                    onButtonSubmit={this.onSubmit}
+                />
+                <FaceRecognition 
+                    box = {box}
+                    imageURL={imageURL}
+                />
+                </div> 
+            );
+        } 
+        else {
+            return (
+                route === 'signin'
+                ? <Signin onRouteChange={this.onRouteChange} />
+                : <Register onRouteChange={this.onRouteChange} />
+            );
+        }
+    }
+
     render() {
+        //const { isSignedIn, imageURL, route, box} = this.state;
         return (
             <div className="App">
                 <ParticlesComponent />
-                <Navigation onRouteChange={this.onRouteChange} />
+                <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange} />
                 {
-                    this.state.route === 'signin' 
-                    ? <Signin onRouteChange={this.onRouteChange} />
-                    : <div>
-                    <Logo />
-                    <Rank />
-                    <ImageLinkForm 
-                        onInputChange={this.onInputChange}
-                        onButtonSubmit={this.onSubmit}
-                    />
-                    <FaceRecognition 
-                        box = {this.state.box}
-                        imageURL={this.state.imageURL}
-                    />
-                </div>
+                    this.determineView()
                 }
-                
             </div>
         );
     }
