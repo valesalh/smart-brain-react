@@ -147,7 +147,7 @@ class App extends Component {
             return (
                 route === 'signin'
                 ? <Signin onRouteChange={this.onRouteChange} />
-                : <Register onRouteChange={this.onRouteChange} />
+                : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
             );
         }
     }
